@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker compose
-      run: whoami && docker compose up -d
+      run: docker compose up -d
       env:
           NETWORK_MODE: react-java0mysql_app-network
     - name: list containers
