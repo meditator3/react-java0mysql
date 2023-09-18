@@ -2,9 +2,9 @@ name: Module-6-docker-compose
 
 on:
   push:
-    branches: [ "Dev" ]
+    branches: [ "Dev", "main" ]
   pull_request:
-    branches: [ "Dev" ]
+    branches: [ "Dev", "main" ]
 
 jobs:
 
