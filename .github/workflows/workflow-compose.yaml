@@ -18,6 +18,6 @@ jobs:
       run: docker compose up -d
     - name: list containers
       run: docker ps -a
-    - name: test_frontend_container
-      run: curl http://frontend:3000 
-    
+    - name: Test Frontend Container
+      run: curl http://localhost:3000
+
