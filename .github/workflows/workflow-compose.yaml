@@ -21,7 +21,7 @@ jobs:
     - name: list containers
       run: sleep 15 && sudo docker ps -a
     - name: test front end container  
-      run: sleep 5 && curl -s http://react-java0mysql-frontend-1:3000
+      run: sleep 5 && curl -s http://localhost:3000
     - name: check logs
       run: docker logs react-java0mysql-backend-1 && docker inspect react-java0mysql-backend-1
    
