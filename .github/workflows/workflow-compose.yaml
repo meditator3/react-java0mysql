@@ -23,13 +23,15 @@ jobs:
     steps:
       - name: list containers
         run: |
-          sleep 15 && sudo docker ps -a |grep "Exited"
-          # if one container has exited the exit_status would be 0
-          exit_status=$?
-          if [ $exit_status -eq 1 ]; then
+          sleep 15
+         
+          exited_containers=$(sudo docker ps -a | grep "Exited")
+          if [ $exit_containers -eq 1 ]; then
             echo "list Test passed"
+            exit 0
           else
             echo "List Test Failed."
+            exit 1
           fi
       - name: test front end container  
         run: sleep 5 && curl -s http://localhost:3000
