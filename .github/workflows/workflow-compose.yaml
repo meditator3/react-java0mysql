@@ -16,8 +16,11 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker compose
       run: docker compose up -d
+      env:
+          NETWORK_MODE: app-network
     - name: list containers
       run: sleep 15 && docker ps -a
+      
     - name: Test Frontend Container
       run: docker logs react-java0mysql-backend-1 && docker inspect react-java0mysql-backend-1
      # run: sleep 5 && curl http://react-java0mysql-frontend-1:3000
