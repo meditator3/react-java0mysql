@@ -17,8 +17,8 @@ jobs:
     - name: Build the Docker compose
       run: docker compose up -d
     - name: list containers
-      run: docker ps -a
+      run: sleep 15 && docker ps -a
     - name: Test Frontend Container
-      run: curl http://react-java0mysql-frontend-1:3000
+      run: sleep 5 && curl http://react-java0mysql-frontend-1:3000
 
 
