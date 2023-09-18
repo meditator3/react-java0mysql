@@ -24,7 +24,7 @@ jobs:
       - name: list containers
         run: |
           # List containers and filter for "Exited" containers
-          docker ps -a | grep -q "Exited"
+          sleep 15 && sudo docker ps -a | grep -q "Exited"
 
           # Capture the exit status of the previous command
           exit_status=$?
