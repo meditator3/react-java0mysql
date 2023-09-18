@@ -7,10 +7,7 @@ services:
     ports:
       - 80:8080
     networks:
-       app-network:
-         aliases:
-           - backend
-
+      - app-network
   db:
     image: mysql:8.0.27
     environment:
@@ -32,9 +29,7 @@ services:
     ports:
       - 3000:3000
     networks:
-      app-network:
-        aliases:        
-          - frontend
+      - app-network
 
 volumes:
   mysqldb:
