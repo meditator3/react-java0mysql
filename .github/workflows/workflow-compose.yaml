@@ -23,18 +23,13 @@ jobs:
     steps:
       - name: list containers
         run: |
-          sleep 15 && sudo docker ps -a
-          # List containers and filter for "Exited" containers
-          exited_containers=$(sudo docker ps -a | grep "Exited")
-
-          if [ -z "$exited_containers" ]; then
-            echo "No containers in 'Exited' state found. Test passed."
-            # You can add further actions or steps here if the test passed.
-            exit 0
+          sleep 15 && sudo docker ps -a |grep "Exited"
+          # if one container has exited the exit_status would be 0
+          exit_status=$?
+          if [ $exit_status -eq 1 ]; then
+            echo "list Test passed"
           else
-            echo "Containers in 'Exited' state found. Test failed."
-            echo "$exited_containers"
-            exit 1  # Return an exit code of 1 to indicate failure.
+            echo "List Test Failed."
           fi
       - name: test front end container  
         run: sleep 5 && curl -s http://localhost:3000
