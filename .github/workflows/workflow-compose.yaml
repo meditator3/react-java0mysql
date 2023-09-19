@@ -15,16 +15,16 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker compose
-      run: sudo docker compose up -d
+      run: docker compose up -d
       
   Test:
     needs: build 
     runs-on: self-hosted
     steps:
-      - name: list containers
+      - name: list containers & Test up&running
         run: |
          sleep 15 
-         if [ $(sudo docker ps -a | grep -q "Exited") ]; then
+         if [ $(docker ps -a | grep -q "Exited") ]; then
             echo "At least one container in 'Exited' state found. List Test Failed."
          else
             echo "No containers in 'Exited' state found. List Test passed."
@@ -40,9 +40,16 @@ jobs:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         run: | 
-          echo "${DOCKERHUB_TOKEN}" | docker login --username ${DOCKERHUB_USERNAME} --password-stdin
+          docker login --username ${DOCKERHUB_USERNAME} --password-stdin <<< "${DOCKERHUB_TOKEN}"
+          for image in $(docker images --format "{{.Repository}}" | grep react)
+            do
+             docker push ${image}:${GITHUB_RUN_NUMBER}
+          done
+          docker push mysql:${GITHUB_RUN_NUMBER}
           
-          sudo docker images 
+
+          
+           
           
         
      
