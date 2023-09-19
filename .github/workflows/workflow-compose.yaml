@@ -69,7 +69,7 @@ jobs:
             do
              docker rmi ${image}
            done
-         
+        
           
           
            
