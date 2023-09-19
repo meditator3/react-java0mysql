@@ -68,8 +68,7 @@ jobs:
              echo "image with repo+tag:${TAG_AND_IMAGE}"
              tag=$(echo ${TAG_AND_IMAGE} | awk -F: '{print $2}' )
              echo "tag only:${tag}"
-             if docker rmi -f ${image}:${tag}
-           done
+          done
           for image in $(docker images --format "{{.Repository}}" | grep '^mysql\|arielguez/mysql')
             do
              
