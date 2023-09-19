@@ -61,14 +61,25 @@ jobs:
         run: docker compose down
       - name: remove images
         run: |
-           for image in $(docker images --format "{{.Repository}}" | grep react)
+          for image in $(docker images --format "{{.Repository}}" | grep react)
             do
              docker rmi ${image}
+             TAG_AND_IMAGE=$(docker images --format "{{.Repository}}:{{.Tag}}" |grep react)
+             echo "image with repo+tag:${TAG_AND_IMAGE}"
+             tag=$(echo ${TAG_AND_IMAGE} | awk -F: '{print $2}' )
+             echo "tag only:${tag}"
+             docker rmi -f ${image}:${tag}
            done
-            for image in $(docker images --format "{{.Repository}}" | grep mysql)
+          for image in $(docker images --format "{{.Repository}}" | grep mysql)
             do
              docker rmi ${image}
-           done
+             TAG_AND_IMAGE=$(docker images --format "{{.Repository}}:{{.Tag}}" |grep mysql)
+             echo "image with repo+tag:${TAG_AND_IMAGE}"
+             tag=$(echo ${TAG_AND_IMAGE} | awk -F: '{print $2}' )
+             echo "tag only:${tag}"
+             docker rmi -f ${image}:${tag}
+          done
+
         
           
           
