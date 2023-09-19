@@ -32,7 +32,7 @@ jobs:
       - name: test front end container  
         run: sleep 5 && curl http://localhost:3000
   push_to_dockerHub:
-    needs: build
+    needs: Test
     runs-on: self-hosted
     steps:
       - name: docker login
