@@ -30,7 +30,7 @@ jobs:
             echo "No containers in 'Exited' state found. List Test passed."
          fi
       - name: test front end container  
-        run: sleep 5 && curl -s http://localhost:3000
+        run: sleep 5 && curl http://localhost:3000
   push_to_dockerHub:
     needs: build
     runs-on: self-hosted
@@ -43,9 +43,9 @@ jobs:
           docker login --username ${DOCKERHUB_USERNAME} --password-stdin <<< "${DOCKERHUB_TOKEN}"
           for image in $(docker images --format "{{.Repository}}" | grep react)
             do
-             docker push ${image}:${GITHUB_RUN_NUMBER}
+             docker push arielguez/${image}:${GITHUB_RUN_NUMBER}
           done
-          docker push mysql:${GITHUB_RUN_NUMBER}
+          docker push arielguez/mysql:${GITHUB_RUN_NUMBER}
           
 
           
