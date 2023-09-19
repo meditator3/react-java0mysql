@@ -44,10 +44,10 @@ jobs:
           for image in $(docker images --format "{{.Repository}}" | grep react)
             do
              docker tag ${image}:latest arielguez/module6/${image}:${GITHUB_RUN_NUMBER}         
-             docker push arielguez/module6/${image}:latest
+             docker push arielguez/module6/${image}:${GITHUB_RUN_NUMBER}
           done
           docker tag mysql:latest arielguez/module6/mysql:${GITHUB_RUN_NUMBER}
-          docker push arielguez/module6/mysql:latest
+          docker push arielguez/module6/mysql:${GITHUB_RUN_NUMBER}
           
 
           
