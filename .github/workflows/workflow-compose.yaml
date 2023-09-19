@@ -46,7 +46,7 @@ jobs:
              docker tag ${image} arielguez/${image}:${GITHUB_RUN_NUMBER}         
              docker push arielguez/${image}:${GITHUB_RUN_NUMBER}
           done
-          mysql_and_tag=$(docker images --format "{{.Repository}}:{{.Tag}})"
+          mysql_and_tag=$(docker images --format "{{.Repository}}:{{.Tag}}")
           mysql_tag=$(echo ${mysql_and_tag} | awk -F: '{print $2}')
           docker tag mysql:${mysql_tag} arielguez/mysql:${GITHUB_RUN_NUMBER}
           docker push arielguez/mysql:${GITHUB_RUN_NUMBER}
