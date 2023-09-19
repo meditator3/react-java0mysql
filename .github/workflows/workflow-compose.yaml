@@ -43,15 +43,15 @@ jobs:
           docker login --username ${DOCKERHUB_USERNAME} --password-stdin <<< "${DOCKERHUB_TOKEN}"
           for image in $(docker images --format "{{.Repository}}" | grep react)
             do
-           #  docker tag ${image} arielguez/${image}:${GITHUB_RUN_NUMBER}         
-            # docker push arielguez/${image}:${GITHUB_RUN_NUMBER}
+             docker tag ${image} arielguez/${image}:${GITHUB_RUN_NUMBER}         
+             docker push arielguez/${image}:${GITHUB_RUN_NUMBER}
           done
-          mysql_and_tag=$(docker images --format "{{.Repository}}:{{.Tag}}")
+          mysql_and_tag=$(docker images --format "{{.Repository}}:{{.Tag}}" | grep ^mysql)
           echo "mysql_and_tag=${mysql_and_tag}"
           mysql_tag=$(echo ${mysql_and_tag} | awk -F: '{print $2}')
           echo "mysql_tag=${mysql_tag}"
-          #docker tag mysql:${mysql_tag} arielguez/mysql:${GITHUB_RUN_NUMBER}
-         # docker push arielguez/mysql:${GITHUB_RUN_NUMBER}
+          docker tag mysql:${mysql_tag} arielguez/mysql:${GITHUB_RUN_NUMBER}
+          docker push arielguez/mysql:${GITHUB_RUN_NUMBER}
           
 
           
