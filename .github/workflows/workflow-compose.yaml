@@ -24,7 +24,7 @@ jobs:
       - name: list containers & Test up&running
         run: |
          sleep 15 
-         if [ $(docker ps -a | grep -q "Exited") ]; then
+         if [ $(docker ps -a | grep -doq "Exited") ]; then
             echo "At least one container in 'Exited' state found. List Test Failed."
          else
             echo "No containers in 'Exited' state found. List Test passed."
@@ -53,8 +53,24 @@ jobs:
           echo "mysql_tag=${mysql_tag}"
           docker tag mysql:${mysql_tag} arielguez/mysql:${GITHUB_RUN_NUMBER}
           docker push arielguez/mysql:${GITHUB_RUN_NUMBER}
+  garbage_disposal:
+     needs: push_to_dockerHub
+     runs-on: self-hosted
+     steps:
+      - name: remove containers
+        run: docker compose down
+      - name: remove images
+        run: |
+           for image in $(docker images --format "{{.Repository}}" | grep react)
+            do
+             docker rmi ${image}
+           done
+            for image in $(docker images --format "{{.Repository}}" | grep mysql)
+            do
+             docker rmi ${image}
+           done
+         
           
-
           
            
           
