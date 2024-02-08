@@ -10,7 +10,7 @@ jobs:
 
   build:
 
-    runs-on: self-hosted
+    runs-on: [self-hosted, CI-server]
 
     steps:
     - uses: actions/checkout@v3
@@ -19,7 +19,7 @@ jobs:
       
   Test:
     needs: build 
-    runs-on: self-hosted
+    runs-on: [self-hosted, CI-server]
     steps:
       - name: list containers & Test up&running
         run: |
@@ -33,7 +33,7 @@ jobs:
         run: sleep 5 && curl http://localhost:3000
   push_to_dockerHub:
     needs: Test
-    runs-on: self-hosted
+    runs-on: [self-hosted, CI-server]
     steps:
       - name: docker login
         env:
@@ -55,7 +55,7 @@ jobs:
           docker push arielguez/mysql:${GITHUB_RUN_NUMBER}
   garbage_disposal:
      needs: push_to_dockerHub
-     runs-on: self-hosted
+     runs-on: [self-hosted, CI-server]
      steps:
       - name: remove containers
         run: docker compose down
