@@ -65,11 +65,15 @@ jobs:
           sed -i "s|image: arielguez/react-java0mysql-backend:.*|image: arielguez/react-java0mysql-backend:$IMAGE_TAG|" ./manifest/backend-deployment.yaml
           sed -i "s|image: arielguez/react-java0mysql-frontend:.*|image: arielguez/react-java0mysql-frontend:$IMAGE_TAG|" ./manifest/frontend-deployment.yaml
           sed -i "s|image: arielguez/mysql:.*|image: arielguez/mysql:$IMAGE_TAG|" ./manifest/db-deployment.yaml
+          cat ./manifest/frontend-deployment.yaml
           git config user.name 'CI Bot'
           git config user.email 'ci-bot@example.com'
+          echo "done CI BOT"
           git add manifest
+          echo "git adding"
           git commit -m "Update image tags to $IMAGE_TAG from the last CI update"
           git push
+          echo "done pushing"
     
   garbage_disposal:
      needs: push_to_dockerHub
