@@ -57,7 +57,7 @@ jobs:
           docker push arielguez/mysql:${GITHUB_RUN_NUMBER}
   update_manifest:
     needs: push_to_dockerHub
-    runs-on: [self-hostedm CI-server]
+    runs-on: [self-hosted, CI-server]
     steps:
       - name: Update Kubernetes manifest
         run: |
