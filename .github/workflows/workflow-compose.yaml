@@ -3,9 +3,11 @@ name: CI over runner and CD over k8s
 on:
   push:
     branches: [ "Dev"]
+    paths-ignore:
+      - 'manifest/**' 
   pull_request:
     branches: [ "Dev"]
-
+ 
 jobs:
 
   build:
