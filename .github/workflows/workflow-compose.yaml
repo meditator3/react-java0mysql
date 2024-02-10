@@ -17,6 +17,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker compose
+      run: docker-compose build --no-cache
+    - name: startup the services  
       run: docker compose up -d
       
   Test:
