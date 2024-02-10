@@ -29,7 +29,7 @@ spec:
               value: example
             - name: MYSQL_ROOT_PASSWORD
               value: db-57xsl
-          image: arielguez/mysql:57
+          image: arielguez/mysql:65
           name: db
           ports:
             - containerPort: 3306
