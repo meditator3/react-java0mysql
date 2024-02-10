@@ -22,7 +22,7 @@ spec:
         io.kompose.service: frontend
     spec:
       containers:
-        - image: arielguez/react-java0mysql-frontend:65
+        - image: arielguez/react-java0mysql-frontend:57
           name: frontend
           ports:
             - containerPort: 3000
