@@ -46,7 +46,7 @@ jobs:
             do
              echo "image name: ${image}"
              echo "github run number: ${GITHUB_RUN_NUMBER}"
-             docker tag ${image} arielguez/${image}:${GITHUB_RUN_NUMBER}         
+             docker tag ${image}:latest arielguez/${image}:${GITHUB_RUN_NUMBER}         
              docker push arielguez/${image}:${GITHUB_RUN_NUMBER}
           done
           mysql_and_tag=$(docker images --format "{{.Repository}}:{{.Tag}}" | grep ^mysql)
