@@ -45,7 +45,7 @@ jobs:
         run: docker login --username ${DOCKERHUB_USERNAME} --password-stdin <<< "${DOCKERHUB_TOKEN}"
       - name: push all images to docker hub
         run: |
-          for image in $(docker images --format "{{.Repository}}:{{.Tag}}" | grep react*:latest)
+          for image in $(docker images --format "{{.Repository}}:{{.Tag}}" | grep react.*:latest)
             do
              echo "image name: ${image}"
              echo "github run number: ${GITHUB_RUN_NUMBER}"
