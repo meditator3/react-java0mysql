@@ -1,4 +1,4 @@
-name: Module-6-docker-compose
+name: CI over runner and CD over k8s
 
 on:
   push:
@@ -53,6 +53,22 @@ jobs:
           echo "mysql_tag=${mysql_tag}"
           docker tag mysql:${mysql_tag} arielguez/mysql:${GITHUB_RUN_NUMBER}
           docker push arielguez/mysql:${GITHUB_RUN_NUMBER}
+  update_manifest:
+    needs: push_to_dockerHub
+    runs-on: [self-hostedm CI-server]
+    steps:
+      - name: Update Kubernetes manifest
+        run: |
+          IMAGE_TAG=${GITHUB_RUN_NUMBER}
+          sed -i "s|image: arielguez/react-java0mysql-backend:.*|image: arielguez/react-java0mysql-backend:$IMAGE_TAG|" ./manifest/backend-deployment.yaml
+          sed -i "s|image: arielguez/react-java0mysql-frontend:.*|image: arielguez/react-java0mysql-frontend:$IMAGE_TAG|" ./manifest/frontend-deployment.yaml
+          sed -i "s|image: arielguez/mysql:.*|image: arielguez/mysql:$IMAGE_TAG|" ./manifest/db-deployment.yaml
+          git config user.name 'CI Bot'
+          git config user.email 'ci-bot@example.com'
+          git add manifest
+          git commit -m "Update image tags to $IMAGE_TAG from the last CI update"
+          git push
+    
   garbage_disposal:
      needs: push_to_dockerHub
      runs-on: [self-hosted, CI-server]
