@@ -2,17 +2,16 @@ name: CI over runner and CD over k8s
 
 on:
   push:
-    branches: [ "Dev"]
+    branches: [ "Dev", "main" ]
     paths-ignore:
       - 'manifest/**' 
-  pull_request:
-    branches: [ "Dev"]
+
  
 jobs:
 
   build:
 
-    runs-on: [self-hosted, CI-server]
+    runs-on: [self-hosted]
 
     steps:
     - uses: actions/checkout@v3
@@ -23,7 +22,7 @@ jobs:
       
   Test:
     needs: build 
-    runs-on: [self-hosted, CI-server]
+    runs-on: [self-hosted]
     steps:
       - name: list containers & Test up&running
         run: |
@@ -38,7 +37,7 @@ jobs:
         
   push_to_dockerHub:
     needs: Test
-    runs-on: [self-hosted, CI-server]
+    runs-on: [self-hosted]
     steps:
       - name: docker login
         env:
@@ -72,7 +71,7 @@ jobs:
           
   update_manifest:
     needs: push_to_dockerHub
-    runs-on: [self-hosted, CI-server]
+    runs-on: [self-hosted]
     steps:
       - name: checkout
         uses: actions/checkout@v3
@@ -94,7 +93,7 @@ jobs:
     
   garbage_disposal:
      needs: push_to_dockerHub
-     runs-on: [self-hosted, CI-server]
+     runs-on: [self-hosted]
      steps:
       - name: remove containers
         run: docker compose down
