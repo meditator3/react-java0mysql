@@ -22,7 +22,7 @@ function App() {
         {greeting ? (
           <p>Hello from {greeting.name}</p>
         ) : (
-          <p>Loading...</p>
+          <p>Loading.....and loading...and loading..</p>
         )}
         <p>
           Edit <code>src/App.tsx</code> and save to reload. if you think that'll help- but it wont.
