@@ -25,7 +25,7 @@ function App() {
           <p>Loading...and loading.. and loading...</p>
         )}
         <p>
-          Edit <code>src/App.tsx</code> and save to reload. if you really think that'll help....
+          Edit <code>src/App.tsx</code> and save to reload. 
         </p>
         <a
           className="App-link"
