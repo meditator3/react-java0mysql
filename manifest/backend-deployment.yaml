@@ -25,7 +25,7 @@ spec:
 
     spec:
       containers:
-        - image: arielguez/react-java0mysql-backend:81
+        - image: arielguez/react-java0mysql-backend:82
           name: backend
           ports:
             - containerPort: 8080
