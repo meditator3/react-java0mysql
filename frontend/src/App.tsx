@@ -25,8 +25,7 @@ function App() {
           <p>Loading.....and loading...and loading..</p>
         )}
         <p>
-          Edit <code>src/App.tsx</code> and save to reload. if you think that'll help- but it wont.
-        </p>
+          Edit <code>src/App.tsx</code> and save to reload.ok thanks all
         <a
           className="App-link"
           href="https://reactjs.org"
